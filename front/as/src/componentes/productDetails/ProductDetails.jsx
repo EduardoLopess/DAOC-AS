@@ -10,7 +10,7 @@ const ProductDetails = ({productDetail}) => {
         name,
         description,
         price,
-        category,
+        categoryDescription,
         imgProduct
     } = productDetail
 
@@ -33,7 +33,7 @@ const ProductDetails = ({productDetail}) => {
                         <p>R$: {price}</p>
                     </div>
                     <div className="productDetails-details">
-                        <h3>Categoria:</h3><p>{category}</p>
+                        <h3>Categoria:</h3><p>{categoryDescription}</p>
                     </div>
                 </div>
 

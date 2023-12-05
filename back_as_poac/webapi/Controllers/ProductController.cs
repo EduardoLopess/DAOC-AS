@@ -3,6 +3,7 @@ using Microsoft.AspNetCore.Mvc;
 using webapi.Models.Data.Repository;
 using webapi.Models.Domain.DTO;
 using webapi.Models.Domain.Entites;
+using webapi.Models.Domain.Enums;
 using webapi.Models.Domain.Interfaces;
 using webapi.Models.Domain.ViewModel;
 
@@ -26,6 +27,12 @@ namespace webapi.Controllers
             var product = await _productRepository.GetAllAsync();
             var productDTO = _mapper.Map<IList<ProductDTO>>(product);
 
+            foreach (var item in productDTO)
+            {
+                item.CategoryDescription = item.ProductCategory
+                    .GetDescription();
+            }
+
             return
                 Ok(productDTO);
         }
@@ -34,9 +41,11 @@ namespace webapi.Controllers
         public async Task<IActionResult> GetById(int id)
         {
             var product = await _productRepository.GetByIdAsync(id);
+            
             if(product == null) return NotFound();
 
             var productDTO = _mapper.Map<ProductDTO>(product);
+            productDTO.CategoryDescription = productDTO.ProductCategory.GetDescription();
             return
                 Ok(productDTO);
 

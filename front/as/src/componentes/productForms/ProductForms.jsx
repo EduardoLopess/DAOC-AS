@@ -2,12 +2,13 @@ import { useState } from 'react';
 import '../productForms/ProductForms.css'
 import { postFormData } from './ProductForms_api'
 const ProductFrom = () => {
+    const [showSuccessPopup, setShowSuccessPopup] = useState(false);
 
     const [formData, setFormData] = useState({
         name: '',
         price: '',
         description: '',
-        category: '',
+        productCategory: '',
         imgProduct : ''
 
     })
@@ -22,6 +23,7 @@ const ProductFrom = () => {
             const response = await postFormData(formData);
             if(response){
                 console.log('POST bem-sucedido:', response);
+                setShowSuccessPopup(true); 
             }
         } catch (error) {
             console.error('Erro ao enviar os dados:', error);
@@ -86,21 +88,28 @@ const ProductFrom = () => {
                     ></textarea>
                 </div>
                 <div className='item-box'>
-                    <label for="category">CATEGORIA:</label>
-                    <select name="category" id="category" required
-                        value={formData.category}
+                    <label for="productCategory">CATEGORIA:</label>
+                    <select name="productCategory" id="productCategory" required
+                        value={formData.productCategory}
                         onChange={(e) =>
-                            setFormData({ ...formData, category: e.target.value})
-                        } 
+                            setFormData({ ...formData, productCategory: parseInt(e.target.value, 10) })                        } 
                         
                     >
                         <option value="">Selecione uma categoria</option>
-                        <option value="eletronico">Eletrônicos</option>
-                        <option value="vestuario">Vestuário</option>
-                        <option value="livro">Livros</option>
-                        <option value="alimento">Alimentos</option>
-                        <option value="cozinha">Cozinha</option>
-                        <option value="escritorio">Escritório</option>
+                        <option value="2">Eletrônicos</option>
+                        <option value="3">Roupas</option>
+                        <option value="4">Beleza</option>
+                        <option value="5">Casa</option>
+                        <option value="6">Esportes</option>
+                        <option value="7">Comida</option>
+                        <option value="8">Livros</option>
+                        <option value="9">Saúde</option>
+                        <option value="10">Brinquedos</option>
+                        <option value="11">Automotivo</option>
+                        <option value="12">Joias</option>
+                        <option value="13">Suprimentos para Animais</option>
+                        <option value="14">Ferramentas</option>
+                        <option value="15">Material de Escritório</option>
                     </select>
                 </div>
                 <div className='item-box'>

@@ -1,6 +1,7 @@
 using AutoMapper;
 using webapi.Models.Domain.DTO;
 using webapi.Models.Domain.Entites;
+using webapi.Models.Domain.Enums;
 
 namespace webapi.Configuration
 {
@@ -8,7 +9,10 @@ namespace webapi.Configuration
     {
         public AutoMapperConfigDTO() 
         {
-            CreateMap<Product, ProductDTO>();
+            CreateMap<Product, ProductDTO>()
+                .ForMember(dest => dest.CategoryDescription, opt => 
+                opt.MapFrom(src => src.ProductCategory.GetDescription()));
         }
     }
 }
+
