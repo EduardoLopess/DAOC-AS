@@ -2,31 +2,52 @@ import { useState } from 'react';
 import '../productForms/ProductForms.css'
 import { postFormData } from './ProductForms_api'
 const ProductFrom = () => {
-    const [showSuccessPopup, setShowSuccessPopup] = useState(false);
-
+    const [successMessage, setSuccessMessage] = useState('');
+    const [showMessage, setShowMessage] = useState(false)
     const [formData, setFormData] = useState({
         name: '',
         price: '',
         description: '',
         productCategory: '',
-        imgProduct : ''
+        imgProduct: ''
+    });
 
-    })
     const handleFormDataChange = (e) => {
         setFormData({ ...formData, imgProduct: e.target.value });
-    }
+    };
 
     const handleSubmit = async (e) => {
         e.preventDefault();
 
         try {
             const response = await postFormData(formData);
-            if(response){
+            if (response) {
                 console.log('POST bem-sucedido:', response);
-                setShowSuccessPopup(true); 
+                setSuccessMessage('Produto adicionado com sucesso!');
+                setShowMessage(true);
+
+                setTimeout(() => {
+                    setFormData({
+                        name: '',
+                        price: '',
+                        description: '',
+                        productCategory: '',
+                        imgProduct: ''
+                    });
+                    setShowMessage(false);
+                    setSuccessMessage('');
+                }, 3000);
             }
         } catch (error) {
             console.error('Erro ao enviar os dados:', error);
+            setSuccessMessage('Erro ao adicionar o produto. Tente novamente mais tarde.');
+            setShowMessage(true);
+
+            // Esconder a mensagem de erro após 3 segundos
+            setTimeout(() => {
+                setShowMessage(false);
+                setSuccessMessage('');
+            }, 3000);
         }
     };
 
@@ -37,99 +58,109 @@ const ProductFrom = () => {
     }
     
     return(
-        <div className='container-forms'>
-            <div className='container-preview-img'>
-                <img src={imgUrl || defaultImg} alt="Preview" />
+        <>
+            <div className='container-forms'>
+                <div className='message-container'>
+                    {successMessage && (
+                        <p className={successMessage.includes('sucesso') ? 'success-message' : 'error-message'}>
+                            {successMessage}
+                        </p>
+                    )}
+                </div>
+                <div className='container-preview-img'>
+                    <img src={imgUrl || defaultImg} alt="Preview" />
+                </div>
+                <form className='forms' onSubmit={handleSubmit}>
+                    <div>
+                        <h1>Novo Produto</h1>
+                    </div>
+                    <div className='item-box'>
+                        <label htmlFor="name">Nome:</label>
+                        <input
+                            type="text"
+                            id="name"
+                            name="name"
+                            required
+                            placeholder="Digete nome do produto"
+                            value={formData.name}
+                            onChange={(e) =>
+                                setFormData({ ...formData, name: e.target.value})
+                            } 
+                        />
+                    </div>
+                    <div className='item-box'>
+                        <label htmlFor="price">Preço:</label>
+                        <input
+                            type="number"
+                            id="price"
+                            required
+                            name="price"
+                            placeholder="Digite o preço"
+                            value={formData.price}
+                            onChange={(e) =>
+                                setFormData({ ...formData, price: e.target.value})
+                            } 
+                            
+                        />
+                    </div>
+                    <div className='item-box'>
+                        <label htmlFor="description">Descrição:</label>
+                        <textarea
+                            id="description"
+                            name="description"
+                            placeholder="Digite a descrição"
+                            value={formData.description}
+                            onChange={(e) =>
+                                setFormData({ ...formData, description: e.target.value})
+                            } 
+                        
+                        ></textarea>
+                    </div>
+                    <div className='item-box'>
+                        <label for="productCategory">CATEGORIA:</label>
+                        <select name="productCategory" id="productCategory" required
+                            value={formData.productCategory}
+                            onChange={(e) =>
+                                setFormData({ ...formData, productCategory: parseInt(e.target.value, 10) })} 
+                            
+                        >
+                            <option value="">Selecione uma categoria</option>
+                            <option value="2">Eletrônicos</option>
+                            <option value="3">Roupas</option>
+                            <option value="4">Beleza</option>
+                            <option value="5">Casa</option>
+                            <option value="6">Esportes</option>
+                            <option value="7">Comida</option>
+                            <option value="8">Livros</option>
+                            <option value="9">Saúde</option>
+                            <option value="10">Brinquedos</option>
+                            <option value="11">Automotivo</option>
+                            <option value="12">Joias</option>
+                            <option value="13">Suprimentos para Animais</option>
+                            <option value="14">Ferramentas</option>
+                            <option value="15">Material de Escritório</option>
+                        </select>
+                    </div>
+                    <div className='item-box'>
+                        <label htmlFor="imgProduct ">URL da imagem:</label>
+                        <input
+                            type="text"
+                            id="imgProduct "
+                            name="imgProduct "
+                            required
+                            value={formData.imgProduct}
+                            onChange={(e) =>{
+                                handleFormDataChange(e)
+                                handleImgUrlChange(e)
+                            }} 
+                        />
+                    </div>
+                    <button type="submit">Enviar</button>
+                </form>
+                           
             </div>
-            <form className='forms' onSubmit={handleSubmit}>
-                <div>
-                    <h1>Novo Produto</h1>
-                </div>
-                <div className='item-box'>
-                    <label htmlFor="name">Nome:</label>
-                    <input
-                        type="text"
-                        id="name"
-                        name="name"
-                        required
-                        placeholder="Digete nome do produto"
-                        value={formData.name}
-                        onChange={(e) =>
-                            setFormData({ ...formData, name: e.target.value})
-                        } 
-                    />
-                </div>
-                <div className='item-box'>
-                    <label htmlFor="price">Preço:</label>
-                    <input
-                        type="number"
-                        id="price"
-                        required
-                        name="price"
-                        placeholder="Digite o preço"
-                        value={formData.price}
-                        onChange={(e) =>
-                            setFormData({ ...formData, price: e.target.value})
-                        } 
-                        
-                    />
-                </div>
-                <div className='item-box'>
-                    <label htmlFor="description">Descrição:</label>
-                    <textarea
-                        id="description"
-                        name="description"
-                        placeholder="Digite a descrição"
-                        value={formData.description}
-                        onChange={(e) =>
-                            setFormData({ ...formData, description: e.target.value})
-                        } 
-                       
-                    ></textarea>
-                </div>
-                <div className='item-box'>
-                    <label for="productCategory">CATEGORIA:</label>
-                    <select name="productCategory" id="productCategory" required
-                        value={formData.productCategory}
-                        onChange={(e) =>
-                            setFormData({ ...formData, productCategory: parseInt(e.target.value, 10) })                        } 
-                        
-                    >
-                        <option value="">Selecione uma categoria</option>
-                        <option value="2">Eletrônicos</option>
-                        <option value="3">Roupas</option>
-                        <option value="4">Beleza</option>
-                        <option value="5">Casa</option>
-                        <option value="6">Esportes</option>
-                        <option value="7">Comida</option>
-                        <option value="8">Livros</option>
-                        <option value="9">Saúde</option>
-                        <option value="10">Brinquedos</option>
-                        <option value="11">Automotivo</option>
-                        <option value="12">Joias</option>
-                        <option value="13">Suprimentos para Animais</option>
-                        <option value="14">Ferramentas</option>
-                        <option value="15">Material de Escritório</option>
-                    </select>
-                </div>
-                <div className='item-box'>
-                    <label htmlFor="imgProduct ">URL da imagem:</label>
-                    <input
-                        type="text"
-                        id="imgProduct "
-                        name="imgProduct "
-                        required
-                        value={formData.imgProduct}
-                        onChange={(e) =>{
-                            handleFormDataChange(e)
-                            handleImgUrlChange(e)
-                        }} 
-                    />
-                </div>
-                <button type="submit">Enviar</button>
-            </form>
-
-        </div>
+            
+        </>
     );
 }
 export default ProductFrom

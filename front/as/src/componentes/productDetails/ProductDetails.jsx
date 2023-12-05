@@ -1,7 +1,7 @@
 import '../productDetails/ProductDetails.css' 
 
 const ProductDetails = ({productDetail}) => {
-    console.log("Dados da campanha:", productDetail)
+    console.log("Dados do produto:", productDetail)
     if (!productDetail || Array.isArray(productDetail)) {
         return <p>Nenhum produto encontrado.</p>;
     }
@@ -33,7 +33,7 @@ const ProductDetails = ({productDetail}) => {
                         <p>R$: {price}</p>
                     </div>
                     <div className="productDetails-details">
-                        <h3>Categoria:</h3><p>{categoryDescription}</p>
+                        <p>Categoria: {categoryDescription}</p>
                     </div>
                 </div>
 

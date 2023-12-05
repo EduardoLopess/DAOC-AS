@@ -1,22 +1,8 @@
-import { getProducts } from './ProductCard_api';
-import React, { useState, useEffect } from 'react';
 import ProductCard from './ProductCard'; 
 
 
-const ProductList = () => {
-    const [products, setProducts] = useState([]);
-  
-    useEffect(() => {
-      async function fetchProducts() {
-        try {
-          const data = await getProducts();
-          setProducts(data);
-        } catch (error) {
-          console.error('Erro ao buscar os produtos:', error);
-        }
-      }
-      fetchProducts();
-    }, []);
+const ProductList = ({products}) => {
+    
   
     return (
       <div>

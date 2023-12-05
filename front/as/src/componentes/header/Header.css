@@ -47,7 +47,7 @@
 
 
 .item-divider::after {
-    content: '|'; /* Adicionando a linha de divisão entre os itens */
+    content: '|'; 
   
     color: white;
 }
