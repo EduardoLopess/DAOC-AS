@@ -1,0 +1,83 @@
+.container-forms {
+    display: flex;
+    width: 65em;
+    padding: 20px;
+}
+
+.forms {
+    width: 350px;
+    box-shadow: 0px 5px 4px rgba(0, 0, 0, 0.4);
+    border-radius: 10px;
+    margin-left: 10px;
+    text-align: center;
+    padding: 20px;
+    background-color: #f1f1f1;
+}
+
+
+
+.item input{
+    border-radius: 10px;
+}
+
+.item-box input,
+.item-box textarea,
+.item-box select {
+    border: none;
+    outline: none;
+    width: 100%; /* Para ocupar todo o espaço disponível */
+    height: 35px;
+    border-radius: 10px;
+    padding: 0 10px;
+    box-sizing: border-box; /* Inclui o padding na largura total */
+}
+
+.container-preview-img{
+    width: auto;
+    justify-content: center;
+    background-color: #f1f1f1;
+    box-shadow: 0px 5px 4px rgba(0, 0, 0, 0.4);
+    border-radius: 10px;
+    justify-content: center; /* Isso centraliza horizontalmente */
+    align-items: center;
+    display: flex;
+    height: 25em;
+}
+.container-preview-img img {
+    width: auto;
+    height: 25em;
+    object-fit: cover;
+}
+
+.item-box input:focus,
+.item-box textarea:focus {
+    border: 1px solid #007bff; /* Adiciona uma borda azul ao focar */
+    /* Outros estilos desejados */
+}
+
+.item-box {
+    padding-top: 15px;
+    display: flex;
+    flex-direction: column;
+    margin-bottom: 10px;
+}
+
+.item-box label {
+    margin-bottom: 10px;
+    min-width: 100px;
+}
+
+.item-box select {
+    border: none;
+    outline: none;
+    width: auto;
+    height: 35px;
+    border-radius: 10px;
+    padding: 0 10px; 
+    background-color: #fff; 
+}
+
+.item-box select:focus {
+    border: 1px solid #007bff; 
+    
+}

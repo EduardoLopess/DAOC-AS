@@ -1,0 +1,38 @@
+.filter-container {
+    display: flex;
+    flex-direction: column; 
+    justify-content: flex-start; 
+    align-items: center;
+    height: 5em;
+    background-color: rgb(188, 161, 155);
+    padding-top: 10px;
+}
+
+.filter-container h4 {
+    margin: 0; /* Remove margens padrão */
+}
+
+.filter-container select {
+    border: none;
+    appearance: none; 
+    background-color: transparent;
+    padding: 5px 10px; 
+    font-size: inherit; 
+    cursor: pointer; 
+}
+
+
+.filter-container ul {
+    list-style: none; 
+    padding: 0; 
+    display: flex;
+    gap: 100px;
+    margin-top: 10px;
+    
+}
+
+.filter-container li {
+    display: flex;
+    align-items: center; /* Alinha itens verticalmente no meio */
+    height: 100%; /* Ocupa toda a altura disponível */
+}
